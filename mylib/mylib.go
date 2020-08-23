@@ -168,7 +168,7 @@ func Loops(){
 	}
 }
 
-func AraysAndSlices(){
+func PrintArrays(){
 
 	// The other values are prefilled with the zero values of int
 	// Len can not be modified after declared 
@@ -183,5 +183,67 @@ func AraysAndSlices(){
 		fmt.Println(i, v)
 	}
 
-	fmt.Println(len(secondArray), len(firstArrayb))
+	//MultiDimensional arrays 
+	mutliDimensionalArray := [3][2]string {
+		{"james", "Ada"},
+		{"Love", "Ayam"},
+		{"Peter", "Jonah"},  //this last comma is mandatory -> mutliDimensionalArray[0][1]
+	}
+
+	fmt.Println(len(secondArray), len(mutliDimensionalArray))
+	fmt.Println(len(firstArrayb))
+}
+
+func PrintSlices(){
+
+	/** 
+	Notes: 
+	- slices, affects the underlying array
+	- A slice can be appended to. If while appending the slice goes out of cap,  the slice expands. 
+	- This is done internally by creating new array with 2x the original aray  for the slice 
+	- The make functions creates an array and treutrns a slice reference of it 
+	- Slices are passed by value 
+	- When passed to a function, changes to slices are reflected even out o the function unlke an array. 
+	- To avoid issues with memory optimization, if slices are being obtained from a large array, remember the underlying array they were being obtained from ...
+		are still in memory and can not be garbage collected because the slice, even though it's a tiny cut of the arrray still points to the array, 
+		to avoid this problem, use the copy() to copy a slice into another, so that underlying array of the prev can be GCd.
+	**/
+	initialArray := [...]int{3, 4, 5, 6, 7, 8, 9, 10, 11, 12} // the ... operator is equivalent to number of lieterals in the array, it doesn't mean the array does not have a speiified capacity
+	
+	sliceA := initialArray[:]
+	sliceB := sliceA[1:4]  // [0], [1], [2], [3] 
+	sliceB[0] = 100
+
+	
+	sliceA = append(sliceA, 10)
+
+	fmt.Println(cap(sliceA))   // Capacity is the cap of the underlying array 
+	fmt.Println(len(sliceA))  // len is the current len of the slice 
+	fmt.Println(sliceB[1])
+
+	sliceC := make([]int, 3, 4)  // initilizze the slice with 0s
+	sliceC[0] = 30
+
+	sliceD := []int{8, 7, 6}  // This creates a slice, although it uses an implicit array internally. This is different from an array, notice the definition has no size 
+
+	//Multidimensional slices 
+	sliceE := [][]string{
+		{"lomie", "jame"},
+		{"omakd", "loalkdo"},
+	}
+
+	memoryArray  := [20]int{1, 2, 3, 4, 5, 6, 7}
+	tinySlice := memoryArray[1:4]  // just a tiny slice but still points to the main array 
+	tinyCopy := make([]int, 4, 4) // cap can be omitted as it defaults to len, second param
+
+	copy(tinyCopy, tinySlice)
+
+	fmt.Println(sliceC[0])
+	fmt.Println(len(sliceD))
+	fmt.Println(sliceE[0][1])
+
+	for i,v := range tinyCopy{
+		fmt.Println(i)
+		fmt.Println(v)
+	}
 }
