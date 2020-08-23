@@ -16,4 +16,6 @@ func main(){
 
 	mylib.Conditionals()
 	mylib.Loops()
+	mylib.PrintArrays()
+	mylib.PrintSlices()
 }

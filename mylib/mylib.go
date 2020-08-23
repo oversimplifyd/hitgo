@@ -232,8 +232,8 @@ func PrintSlices(){
 		{"omakd", "loalkdo"},
 	}
 
-	memoryArray  := [20]int{1, 2, 3, 4, 5, 6, 7}
-	tinySlice := memoryArray[1:4]  // just a tiny slice but still points to the main array 
+	memoryArray  := [20]int{9, 10, 11, 12, 13, 14, 15,}
+	tinySlice := memoryArray[0:4]  // just a tiny slice but still points to the main array 
 	tinyCopy := make([]int, 4, 4) // cap can be omitted as it defaults to len, second param
 
 	copy(tinyCopy, tinySlice)
